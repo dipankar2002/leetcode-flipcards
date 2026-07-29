@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:import": "tsx src/scripts/import-leetcode.ts"
+    "db:import": "tsx src/scripts/importers/leetcode.ts"
   },
   "dependencies": {
     "@prisma/client": "^7.9.1",
