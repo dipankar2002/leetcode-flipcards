@@ -1,16 +1,15 @@
 import { fetchLeetCodeQuestions } from "../sources/github-leetcode.source";
-import { importQuestions } from "@/services/question.service";
+import { QuestionService } from "@/services/question.service";
 
 async function main() {
   console.log("🚀 Starting import...\n");
 
   const questions = await fetchLeetCodeQuestions();
 
-  console.log(`Downloaded ${questions.length} questions`);
+  const result = await QuestionService.import(questions);
 
-  const imported = await importQuestions(questions);
-
-  console.log(`Imported ${imported} questions`);
+  console.log(`Downloaded : ${result.total}`);
+  console.log(`Imported   : ${result.imported}`);
 
   console.log("\n🎉 Done!");
 }

@@ -1,22 +1,21 @@
 import { prisma } from "@/lib/prisma";
-import type { QuestionImportData } from "@/types/question";
 import { Platform } from "@/generated/prisma/enums";
+import type { QuestionImportData } from "@/types/question";
 
-export async function createManyQuestions(
-  questions: QuestionImportData[]
-): Promise<number> {
-  const result = await prisma.question.createMany({
-    data: questions.map((question) => ({
-      platform: Platform.LEETCODE,
-      platformQuestionId: question.platformQuestionId,
-      title: question.title,
-      slug: question.slug,
-      url: question.url,
-      difficulty: question.difficulty,
-    })),
+export const QuestionRepository = {
+  async createMany(questions: QuestionImportData[]): Promise<number> {
+    const result = await prisma.question.createMany({
+      data: questions.map((question) => ({
+        platform: Platform.LEETCODE,
+        platformQuestionId: question.platformQuestionId,
+        title: question.title,
+        slug: question.slug,
+        url: question.url,
+        difficulty: question.difficulty,
+      })),
+      skipDuplicates: true,
+    });
 
-    skipDuplicates: true,
-  });
-
-  return result.count;
-}
+    return result.count;
+  },
+};
