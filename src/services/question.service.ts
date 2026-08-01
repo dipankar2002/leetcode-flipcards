@@ -1,5 +1,7 @@
 import type { QuestionImportData } from "@/types/question";
+
 import { QuestionRepository } from "@/repositories/question.repository";
+import { QuestionSearchParams } from "@/types/search";
 
 export interface ImportResult {
   total: number;
@@ -21,4 +23,8 @@ export const QuestionService = {
       imported,
     };
   },
+
+  async findAll(params: QuestionSearchParams) {
+    return QuestionRepository.search(params);
+  }
 };
